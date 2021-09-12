@@ -184,7 +184,7 @@ function drawCircle(originX, originY, radius, color, ctx) {
  * @param {line color} color 
  * @param {canvas context} ctx 
  */
-function drawBezierStrings(p0, p1, p2, color, ctx) {
+await function drawBezierStrings(p0, p1, p2, color, ctx) {
     for (var t = 0; t <= 1; t += 0.02) {
 
         var firstControlPoint = new point();
@@ -199,6 +199,8 @@ function drawBezierStrings(p0, p1, p2, color, ctx) {
         drawBresenhamLine(firstControlPoint.x, firstControlPoint.y,
             secondControlPoint.x, secondControlPoint.y,
             color, ctx);
+        
+        sleep(300);
     }
 }
 
@@ -222,4 +224,8 @@ function drawQuadraticBezierCurve(p0, p1, p2, color, ctx) {
         ctx.fillStyle = color;
         ctx.fillRect(resultantPoint.x, resultantPoint.y, 1.5, 1.5);
     }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
