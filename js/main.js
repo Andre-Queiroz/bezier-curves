@@ -1,17 +1,19 @@
-window.addEventListener("load", () => {
-    const canvas = document.querySelector("#canvas");
-    const ctx = canvas.getContext("2d");
-    
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
+window.addEventListener('load', fractal());
 
-    var p0 = new point(canvas.width - canvas.width, canvas.height - canvas.height);
-    var p1 = new point(canvas.width - canvas.width, canvas.height);
-    var p2 = new point(canvas.width, canvas.height);
-    var p3 = new point(canvas.width, canvas.height - canvas.height);
-  
-    drawBezierStrings(p0, p1, p2, 'purple', ctx);
-    drawBezierStrings(p1, p2, p3, 'purple', ctx);
-    drawBezierStrings(p2, p3, p0, 'purple', ctx);
-    drawBezierStrings(p3, p0, p1, 'purple', ctx);
-});
+function fractal() {
+    const sketch = new Sketch('#canvas', '2d');
+    const fractal = new Fractal(sketch);
+
+    sketch.setup();
+
+    var p0 = new point(0,0);
+    var p1 = new point(0, sketch.getCanvasHeight());
+    var p2 = new point(sketch.getCanvasWidth(), sketch.getCanvasHeight());
+    var p3 = new point(sketch.getCanvasWidth(), 0);
+
+    
+    fractal.bezier(p0, p1, p2, 'purple');
+    fractal.bezier(p1, p2, p3, 'purple');
+    fractal.bezier(p2, p3, p0, 'purple');
+    fractal.bezier(p3, p0, p1, 'purple');
+}
