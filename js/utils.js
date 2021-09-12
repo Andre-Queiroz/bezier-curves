@@ -184,7 +184,7 @@ function drawCircle(originX, originY, radius, color, ctx) {
  * @param {line color} color 
  * @param {canvas context} ctx 
  */
-await function drawBezierStrings(p0, p1, p2, color, ctx) {
+async function drawBezierStrings(p0, p1, p2, color, ctx) {
     for (var t = 0; t <= 1; t += 0.02) {
 
         var firstControlPoint = new point();
