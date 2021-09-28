@@ -64,7 +64,7 @@ class Sketch {
         // Calcula os parametros da equacao da reta y = mx + b
         var m = (end.y - start.y) / (end.x - start.x);
         var b = start.y - m * start.x;
-    
+
         // Se o x do ponto inicial for igual ao x do ponto final, a reta é vertical (m infinito)
         if (start.x == end.x) {
             if (start.y > end.y) {
@@ -112,7 +112,7 @@ class Sketch {
         // Calcula os parametros da equacao da reta y = mx + b
         var m = (endY - startY) / (endX - startX);
         var b = startY - m * startX;
-        
+
         this.sketch.setColor(color);
         // Se o x do ponto inicial for igual ao x do ponto final, a reta é vertical (m infinito)
         if (startX == endX) {
@@ -180,28 +180,28 @@ class Sketch {
         y1 |= 0;
         x2 |= 0;
         y2 |= 0;
-    
+
         var dx = x2 - x1;
         var dy = y2 - y1;
-    
+
         var sx = (dx > 0) - (dx < 0);
         var sy = (dy > 0) - (dy < 0);
-    
+
         dx *= sx;
         dy *= sy;
-    
-        
+
+
         this.dot(x1, y1, 1.5, 1.5);
-    
+
         if (!(dx || dy)) {
             return;
         }
-    
+
         var d = 0;
         var x = x1;
         var y = y1;
         var v;
-    
+
         if (dy < dx) {
             for (v = 0 | (dy << 15) / dx * sy; x ^ x2; x += sx, d &= 32767) {
                 this.dot(x, y += (d += v) >> 15, 1.5, 1.5);
@@ -211,5 +211,21 @@ class Sketch {
                 this.dot(x += (d += v) >> 15, y, 1.5, 1.5);
             }
         }
+    }
+
+    drawTriangle(p1, p2, p3) {
+        this.drawBresenhamLine(p1.x, p1.y, p2.x, p2.y);
+        this.drawBresenhamLine(p2.x, p2.y, p3.x, p3.y);
+        this.drawBresenhamLine(p3.x, p3.y, p1.x, p1.y);
+    }
+
+    drawRectangle(p1, p2) {
+        let p3 = new point(p2.x, p1.y);
+        let p4 = new point(p1.x, p2.y);
+
+        this.drawBresenhamLine(p1.x, p1.y, p3.x, p3.y);
+        this.drawBresenhamLine(p3.x, p3.y, p2.x, p2.y);
+        this.drawBresenhamLine(p2.x, p2.y, p4.x, p4.y);
+        this.drawBresenhamLine(p4.x, p4.y, p1.x, p1.y);
     }
 }

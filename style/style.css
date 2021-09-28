@@ -8,3 +8,8 @@ body, canvas, html {
 canvas {       
     background:black;
 }
+
+form {
+    color: white;
+    background-color: black;
+}
